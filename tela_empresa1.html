@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Fin Track - Empresas</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: linear-gradient(to bottom, #ddd, #fff);
+    }
+
+    header {
+      background-color: #2b774c;
+      color: white;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header .menu-icon {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    header .logo {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    header .logout {
+      background-color: white;
+      color: #2b774c;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background-color: #2b774c;
+      border-radius: 10px;
+      padding: 20px;
+      color: white;
+    }
+
+    .container h2 {
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 10px;
+    }
+
+    .search-bar input[type="text"] {
+      padding: 5px;
+      width: 200px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+    }
+
+    .search-bar button {
+      margin-left: 5px;
+      padding: 5px 10px;
+      border: none;
+      background-color: white;
+      color: #2b774c;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .empresa {
+      background-color: white;
+      color: black;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .empresa button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .empresa .editar {
+      background-color: #ffffff;
+      color: rgb(0, 0, 0);
+    }
+
+    .empresa .remover {
+      background-color: #ffffff;
+      color: rgb(0, 0, 0);
+    }
+
+    .cadastrar-btn {
+      display: block;
+      margin: 20px auto 0;
+      background-color: white;
+      color: #000000;
+      border: 1px solid #2b774c;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="menu-icon">☰</div>
+    <div class="logo">Fin track</div>
+    <button class="logout">Logout</button>
+  </header>
+
+  <div class="container">
+    <h2>Empresas</h2>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Pesquisar">
+      <button>🔍</button>
+    </div>
+
+    <div class="empresa">
+      <span>Nome da Empresa 1</span>
+      <div>
+        <button class="editar">Editar</button>
+        <button class="remover">Remover</button>
+      </div>
+    </div>
+
+    <div class="empresa">
+      <span>Nome da Empresa 2</span>
+      <div>
+        <button class="editar">Editar</button>
+        <button class="remover">Remover</button>
+      </div>
+    </div>
+
+    <button class="cadastrar-btn">Cadastrar Empresa</button>
+  </div>
+
+</body>
+</html>
