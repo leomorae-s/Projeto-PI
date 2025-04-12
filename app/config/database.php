@@ -16,7 +16,7 @@ class Database {
 
     private $pdo;
 
-    public function __construct($host, $db, $user, $password, $pdo) {
+    public function __construct() {
         $this->host = getenv("DB_HOST");
         $this->db = getenv("DB_NAME");
         $this->user = getenv("DB_USER");
