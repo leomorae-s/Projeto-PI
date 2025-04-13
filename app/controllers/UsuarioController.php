@@ -4,13 +4,21 @@ namespace controllers;
 use Database;
 use helpers\View;
 use Redirect;
+use helpers\Auth;
 
 require_once __DIR__ . '/../helpers/View.php';
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../helpers/Redirect.php';
+require_once __DIR__ . '/../helpers/Auth.php';
+
 class  UsuarioController{
     public function index(){
-        var_dump("home");
+        $usuario = Auth::getNomeUsuarioLogado();
+        if($usuario){
+            echo "bem vindo " . $usuario;
+        } else {
+            echo "Faça login";
+        }
     }
 
     public function login(){
@@ -27,21 +35,13 @@ class  UsuarioController{
 //            \Redirect::redirect("/");
 //        }
 
-        if ($usuario) {
-            if ($usuario['senha'] == $senha) {
-                \Redirect::redirect("/");
-                var_dump("entrou");
-            } else {
-                var_dump("erro: senha incorreta");
+            if ($usuario['senha'] !== $senha) {
+                var_dump("senha incorreta");
+                return;
             }
-        } else {
-            var_dump("erro: usuário não encontrado");
+
+         Auth::setUsuarioLogado($usuario);
+         Redirect::redirect("/");
+
         }
-
-
-
-
-
-
-    }
 }

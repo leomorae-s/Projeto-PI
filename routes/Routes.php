@@ -19,7 +19,9 @@ class Routes {
 
         foreach ($this->routes as $routeDef) {
             if ($routeDef['method'] !== $method) continue;
-
+//            '/usuario/{id}'
+//            vira:
+//            '#^/usuario/([a-zA-Z0-9-_]+)$#'
             $pattern = preg_replace('/\{[a-zA-Z_]+\}/', '([a-zA-Z0-9-_]+)', $routeDef['route']);
             $pattern = "#^{$pattern}$#";
 
