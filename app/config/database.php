@@ -40,6 +40,27 @@ class Database {
         $this->pdo = null;
     }
 
+    public function findBy($nomeTabela, $nomeCampoBusca, $valorBusca, $colunasSelecionadas = '*') {
+        try {
+            $conexao = $this->getConnection();
+
+            // Prepara a consulta SQL
+            $sql = "SELECT {$colunasSelecionadas} FROM {$nomeTabela} WHERE {$nomeCampoBusca} = :valor";
+            $stmt = $conexao->prepare($sql);
+
+            // Faz o binding do valor
+            $stmt->bindValue(':valor', $valorBusca);
+
+            // Executa a consulta
+            $stmt->execute();
+
+            // Retorna o resultado da consulta
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $erro) {
+            echo "Erro ao executar consulta: " . $erro->getMessage();
+        }
+    }
+
 
 
 }
