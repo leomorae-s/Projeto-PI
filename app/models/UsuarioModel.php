@@ -60,32 +60,30 @@ class UsuarioModel
     }
 
 
-    public function buscarUsuarioPorNome($nome){
-
+    public function buscarUsuarioPorNome($nome) {
         try {
             $banco = new Database();
             $pdo = $banco->getConnection();
+
             $sql = "SELECT * FROM usuarios WHERE nome = ?";
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(1, $nome);
             $stmt->execute();
+
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if (!$result) {
-                return "Usuario não encontrado";
-            } else {
-
-                return "Nome: " . $result['nome'] . "\nE-mail: " . $result['email'] . "\nCargo: " . $result['tipo_usuario'];
-            }
+            return $result ?: null;
 
         } catch (PDOException $e) {
-            echo "Erro ao buscar no banco de dados! " . $e->getMessage();
-        } finally {
-            $banco->closeConnection();
-        }
-        return "conexão fechada!";
 
+            throw new PDOException("Erro ao buscar no banco: " . $e->getMessage());
+        } finally {
+            if (isset($banco)) {
+                $banco->closeConnection();
+            }
+        }
     }
+
 
 
     public function deletarUsuarioPorNome($nome){
@@ -97,11 +95,16 @@ class UsuarioModel
             $stmt = $pdo->prepare($sql);
             $stmt->bindParam(1, $nome);
             $stmt->execute();
-            echo "Usuario deletado com sucesso";
+            return $stmt->rowCount() > 0;
+
         } catch (PDOException $e) {
-            echo "Erro ao deletar no banco de dados" . $e->getMessage();
+
+            throw new PDOException("Erro ao deletar usuário" . $e->getMessage());
         } finally {
-            $banco->closeConnection();
+
+            if (isset($banco)) {
+                $banco->closeConnection();
+            }
         }
 
     }
