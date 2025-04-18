@@ -22,7 +22,7 @@ class  UsuarioController{
     }
 
     public function login(){
-        View::render("login");
+        View::render("login.php", ['title' => "Login"], false);
     }
 
     public function authenticate(){
@@ -30,7 +30,7 @@ class  UsuarioController{
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
         $senha = trim($_POST['senha']);
 
-        $usuario = $database->findBy('usuario', 'email', $email);
+        $usuario = $database->findBy('usuarios', 'email', $email);
 //        if(!password_verify($password, $usuario['senha'])) {
 //            \Redirect::redirect("/");
 //        }
