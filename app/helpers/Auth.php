@@ -12,8 +12,8 @@ class Auth{
     }
 
     public static function getNomeUsuarioLogado() {
-        $usuario = self::getUsuarioLogado();  // Pega o usuário logado
-        return $usuario ? $usuario['nome'] : null;  // Retorna o nome ou null se não tiver usuário logado
+        $usuario = self::getUsuarioLogado();
+        return $usuario ? $usuario['nome'] : null;
     }
 
     public static function isLogged(){
