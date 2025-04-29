@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Fin Track - Empresas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Empresas - Fin Track</title>
   <style>
     * {
       box-sizing: border-box;
@@ -11,149 +12,152 @@
 
     body {
       margin: 0;
-      background: linear-gradient(to bottom, #ddd, #fff);
+      background-color: #f1f1f1;
     }
 
     header {
-      background-color: #2b774c;
+      background-color: #2ecc71;
       color: white;
-      padding: 15px 30px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 15px 20px;
     }
 
-    header .menu-icon {
+    .menu-icon {
       font-size: 24px;
       cursor: pointer;
     }
 
-    header .logo {
-      font-weight: bold;
+    .logo {
       font-size: 18px;
     }
 
-    header .logout {
-      background-color: white;
-      color: #2b774c;
+    .logout-btn {
+      background-color: #3fa96d;
       border: none;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      background-color: #2b774c;
-      border-radius: 10px;
-      padding: 20px;
       color: white;
-    }
-
-    .container h2 {
-      margin-bottom: 20px;
-    }
-
-    .search-bar {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 10px;
-    }
-
-    .search-bar input[type="text"] {
-      padding: 5px;
-      width: 200px;
-      border-radius: 3px;
-      border: 1px solid #ccc;
-    }
-
-    .search-bar button {
-      margin-left: 5px;
-      padding: 5px 10px;
-      border: none;
-      background-color: white;
-      color: #2b774c;
-      border-radius: 3px;
+      padding: 8px 14px;
+      border-radius: 5px;
       cursor: pointer;
     }
 
-    .empresa {
-      background-color: white;
-      color: black;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 5px;
+    main {
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .top-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 25px;
     }
 
-    .empresa button {
-      margin-left: 10px;
-      padding: 5px 10px;
+    .search-input {
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 250px;
+    }
+
+    .add-btn {
+      background-color: #2ecc71;
+      color: white;
       border: none;
-      border-radius: 3px;
-      cursor: pointer;
-    }
-
-    .empresa .editar {
-      background-color: #ffffff;
-      color: rgb(0, 0, 0);
-    }
-
-    .empresa .remover {
-      background-color: #ffffff;
-      color: rgb(0, 0, 0);
-    }
-
-    .cadastrar-btn {
-      display: block;
-      margin: 20px auto 0;
-      background-color: white;
-      color: #000000;
-      border: 1px solid #2b774c;
-      padding: 10px 20px;
+      padding: 10px 16px;
       border-radius: 5px;
       cursor: pointer;
     }
 
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f9f9f9;
+    }
+
+    .edit-icon {
+      cursor: pointer;
+      font-size: 18px;
+      color: #333;
+    }
   </style>
 </head>
 <body>
-
   <header>
-    <div class="menu-icon">☰</div>
+    <div class="menu-icon">&#9776;</div>
     <div class="logo">Fin track</div>
-    <button class="logout">Logout</button>
+    <button class="logout-btn">Logout</button>
   </header>
 
-  <div class="container">
-    <h2>Empresas</h2>
-
-    <div class="search-bar">
-      <input type="text" placeholder="Pesquisar">
-      <button>🔍</button>
+  <main>
+    <div class="top-bar">
+      <input type="text" class="search-input" placeholder="Pesquisar empresas..." onkeyup="filtrarEmpresas()">
+      <button class="add-btn" onclick="cadastrarEmpresa()">Cadastrar</button>
     </div>
 
-    <div class="empresa">
-      <span>Nome da Empresa 1</span>
-      <div>
-        <button class="editar">Editar</button>
-        <button class="remover">Remover</button>
-      </div>
-    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Empresas</th>
+          <th>CNPJ</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody id="tabela-empresas">
+        <tr>
+          <td>Boticario</td>
+          <td>12.345.678/0001-95</td>
+          <td><span class="edit-icon" onclick="editarEmpresa('Boticario', '12.345.678/0001-95')">&#9998;</span></td>
+        </tr>
+        <tr>
+          <td>Apple</td>
+          <td>98.765.432/0001-00</td>
+          <td><span class="edit-icon" onclick="editarEmpresa('Apple', '98.765.432/0001-00')">&#9998;</span></td>
+        </tr>
+        <tr>
+          <td>Google</td>
+          <td>11.222.333/0001-88</td>
+          <td><span class="edit-icon" onclick="editarEmpresa('Google', '11.222.333/0001-88')">&#9998;</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </main>
 
-    <div class="empresa">
-      <span>Nome da Empresa 2</span>
-      <div>
-        <button class="editar">Editar</button>
-        <button class="remover">Remover</button>
-      </div>
-    </div>
+  <script>
+    function filtrarEmpresas() {
+      const filtro = document.querySelector(".search-input").value.toLowerCase();
+      const linhas = document.querySelectorAll("#tabela-empresas tr");
 
-    <button class="cadastrar-btn">Cadastrar Empresa</button>
-  </div>
+      linhas.forEach((linha) => {
+        const nomeEmpresa = linha.children[0].textContent.toLowerCase();
+        if (nomeEmpresa.includes(filtro)) {
+          linha.style.display = "";
+        } else {
+          linha.style.display = "none";
+        }
+      });
+    }
 
+    function cadastrarEmpresa() {
+      window.location.href = "cadastro.html";
+    }
+
+    function editarEmpresa(nome, cnpj) {
+      localStorage.setItem("empresaEditando", JSON.stringify({ nome, cnpj }));
+      window.location.href = "cadastro.html";
+    }
+  </script>
 </body>
 </html>
