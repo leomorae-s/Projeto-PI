@@ -20,7 +20,12 @@ class FinanceiroModel
         $this->tipo = $tipo;
         $this->descricao = $descricao;
         $this->valor = $valor;
-        $this->data = date("Y-m-d");
+        $date = \DateTime::createFromFormat('d/m/Y', $data);
+        if ($date) {
+            $this->data = $date->format('Y-m-d');
+        } else {
+            $this->data = date('Y-m-d');
+        }
         $this->categoria = $categoria;
         $this->banco = new \Database();
         $this->pdo = $this->banco->getConnection();
