@@ -1,0 +1,55 @@
+<style>
+    .sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      background-color: #2ecc71;
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 20px;
+      z-index: 1000;
+    }
+  
+    .sidebar a {
+      display: block;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.2s;
+    }
+  
+    .sidebar a:hover {
+      background-color: #27ae60;
+    }
+  
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      z-index: 1001;
+    }
+  
+    @media (max-width: 768px) {
+      .sidebar {
+        width: 200px;
+      }
+    }
+  </style>
+  
+  <div id="sidebar" class="sidebar">
+    <span class="close-btn" onclick="toggleMenu()">&times;</span>
+    <a href="perfil.html"><span>👤</span>Perfil</a>
+    <a href="financeiro.html"><span>📊</span>Controle Financeiro</a>
+    <a href="despesas.html"><span>💸</span>Despesas</a>
+    <a href="vendas.html"><span>💰</span>Vendas</a>
+    <a href="produtos.html"><span>📦</span>Produtos</a>
+    <a href="clientes.html"><span>👥</span>Clientes</a>
+    <a href="funcionarios.html"><span>🧑‍💼</span>Funcionários</a>
+  </div>
+  
