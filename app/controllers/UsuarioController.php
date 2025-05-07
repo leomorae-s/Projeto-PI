@@ -7,7 +7,7 @@ use Redirect;
 use helpers\Auth;
 
 require_once __DIR__ . '/../helpers/View.php';
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../core/Database.php';
 require_once __DIR__ . '/../helpers/Redirect.php';
 require_once __DIR__ . '/../helpers/Auth.php';
 

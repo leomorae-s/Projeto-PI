@@ -8,7 +8,7 @@ use Database;
 use PDO;
 use PDOException;
 
-require_once "../config/database.php";
+require_once "../core/Database.php";
 
 class UsuarioModel
 {

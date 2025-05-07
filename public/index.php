@@ -1,26 +1,60 @@
 <?php
-session_start();
-require_once '../routes/Routes.php';
-require_once '../app/controllers/UsuarioController.php';
+
+require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/VendaController.php';
-require_once __DIR__ . "/../app/config/database.php";
+require_once '../app/controllers/FinanceiroController.php';
 
-// Iniciar a conexão
-try {
-    $database = new Database();
-} catch (PDOException $e) {
-    var_dump($e->getMessage());
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$method = $_SERVER['REQUEST_METHOD'];
+
+switch ($uri) {
+    case '/':
+    case '/login':
+        if ($method === 'GET') {
+            (new AuthController())->showLogin();
+        } elseif ($method === 'POST') {
+            (new AuthController())->login();
+        }
+        break;
+
+    case '/logout':
+        (new AuthController())->logout();
+        break;
+
+    case '/dashboard':
+        require '../app/views/dashboard/index.php';
+        break;
+
+    case '/vendas':
+        (new VendaController())->index();
+        break;
+
+    case '/vendas/nova':
+        (new VendaController())->nova();
+        break;
+
+    case '/vendas/salvar':
+        if ($method === 'POST') {
+            (new VendaController())->salvar();
+        }
+        break;
+
+
+    case '/financeiro':
+        (new FinanceiroController())->index();
+        break;
+
+    case '/financeiro/novo':
+        (new FinanceiroController())->novo();
+        break;
+
+    case '/financeiro/salvar':
+        if ($method === 'POST') {
+            (new FinanceiroController())->salvar();
+        }
+        break;
+
+    default:
+        http_response_code(404);
+        echo "Página não encontrada.";
 }
-
-// Inicia o roteador
-$router = new \routes\Routes();
-
-// Define as rotas
-$router->add('GET','/', [\controllers\UsuarioController::class, 'index']);
-$router->add('GET','/login', [\controllers\UsuarioController::class, 'login']);
-$router->add('POST','/login/store', [\controllers\UsuarioController::class, 'authenticate']);
-$router->add('GET','/vendas', [\controllers\VendaController::class, 'index']);
-//$router->add('/usuario/{id}', [UserController::class, 'show']);
-
-// Roda o roteador com a URL atual
-$router->dispatch($_SERVER['REQUEST_URI']);

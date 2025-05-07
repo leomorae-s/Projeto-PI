@@ -2,7 +2,7 @@
 
 namespace models;
 
-require_once "../config/database.php";
+require_once "../core/Database.php";
 class ItemVendaModel
 {
     private $id_venda;

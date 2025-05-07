@@ -1,61 +1,47 @@
 <?php
-
-namespace models;
-
-
-require_once "../config/database.php";
+require_once 'core/Database.php';
 
 class VendaModel
 {
+    private $pdo;
 
+    public function __construct()
+    {
+        $this->pdo = (new Database())->connect();
+    }
 
-   private  ProdutoModel $produto;
-   private $valor;
+    public function salvar($usuarioId, $itens)
+    {
+        $this->pdo->beginTransaction();
 
-   private $vendedor;
+        $total = 0;
+        foreach ($itens as $item) {
+            $total += $item['preco'] * $item['quantidade'];
+        }
 
-   private $data_venda;
+        $stmt = $this->pdo->prepare("INSERT INTO vendas (usuario_id, total) VALUES (?, ?)");
+        $stmt->execute([$usuarioId, $total]);
+        $vendaId = $this->pdo->lastInsertId();
 
-   private $descricao;
+        foreach ($itens as $item) {
+            $stmt = $this->pdo->prepare("
+                INSERT INTO itens_venda (venda_id, produto_id, quantidade, preco_unitario)
+                VALUES (?, ?, ?, ?)
+            ");
+            $stmt->execute([$vendaId, $item['produto_id'], $item['quantidade'], $item['preco']]);
+        }
 
-   private $banco;
+        $this->pdo->commit();
+    }
 
-   private $pdo;
-   private $id_vendedor;
-
-   public function __construct(ProdutoModel $produto, $valor, $vendedor, $descricao, $id_vendedor){
-       $this->produto = $produto;
-       $this->valor = $valor;
-       $this->vendedor = $vendedor;
-       $this->data_venda = date("Y-m-d");
-       $this->descricao = $descricao;
-       $this->banco = new \Database();
-       $this->pdo = $this->banco->getConnection();
-       $this->id_vendedor = $id_vendedor;
-
-   }
-
-
-   public function salvarVenda(){
-       try {
-           $pdo = $this->pdo;
-           $sql = "INSERT INTO vendas (valor_total, descricao, id_vendedor) VALUES (?, ?,?)";
-           $stmt = $pdo->prepare($sql);
-           $stmt->bindParam(1, $this->valor);
-           $stmt->bindParam(2, $this->descricao);
-           $stmt->bindParam(3, $this->vendedor);
-           $stmt->execute();
-
-           return $stmt->rowCount();
-       } catch (\PDOException $e) {
-           throw new \PDOException($e->getMessage(), (int)$e->getCode());
-       } finally {
-           if (isset($banco)){
-               $banco->closeConnection();
-           }
-       }
-   }
-
-
-
+    public function listar()
+    {
+        $stmt = $this->pdo->query("
+            SELECT v.*, u.nome AS vendedor
+            FROM vendas v
+            JOIN usuarios u ON v.usuario_id = u.id
+            ORDER BY v.data DESC
+        ");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
