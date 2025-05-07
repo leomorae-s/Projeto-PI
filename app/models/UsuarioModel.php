@@ -10,14 +10,14 @@ use PDOException;
 
 require_once "../core/Database.php";
 
-class UsuarioModel
+abstract class UsuarioModel
 {
-    private $nome;
-    private $email;
+    protected $nome;
+    protected $email;
 
-    private $senha;
+    protected $senha;
 
-    private $tipo;
+    protected $tipo;
 
 
 
