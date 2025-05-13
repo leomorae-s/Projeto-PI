@@ -9,6 +9,12 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($uri) {
     case '/':
+        if($method === 'GET'){
+            (new AuthController())->showRegister();
+        } elseif ($method === 'POST') {
+            (new AuthController())->register();
+        }
+        break;
     case '/login':
         if ($method === 'GET') {
             (new AuthController())->showLogin();
@@ -53,6 +59,14 @@ switch ($uri) {
             (new FinanceiroController())->salvar();
         }
         break;
+    case '/funcionario':
+        if($method === 'GET') {
+            (new AuthController())->showCadastroFuncionario();
+        } elseif ($method === 'POST') {
+            (new AuthController())->salvarFuncionario();
+        }
+        break;
+
 
     default:
         http_response_code(404);

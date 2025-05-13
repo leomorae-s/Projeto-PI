@@ -8,7 +8,7 @@ use Database;
 use PDO;
 use PDOException;
 
-require_once "../core/Database.php";
+require_once __DIR__ . '/../core/Database.php';
 
 abstract class UsuarioModel
 {

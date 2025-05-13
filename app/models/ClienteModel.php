@@ -2,7 +2,7 @@
 
 namespace models;
 
-require_once "../core/Database.php";
+require_once __DIR__ . '/../core/Database.php';
 
 class ClienteModel
 {

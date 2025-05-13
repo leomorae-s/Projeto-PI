@@ -1,7 +1,7 @@
 <?php
 
-require_once 'models/VendaModel.php';
-require_once 'models/ProdutoModel.php';
+require_once __DIR__ . '/../models/VendaModel.php';
+require_once  __DIR__ . '/../models/ProdutoModel.php';
 
 class VendaController
 {

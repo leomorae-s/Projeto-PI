@@ -1,6 +1,6 @@
 <?php
 
-require_once 'models/FinanceiroModel.php';
+require_once __DIR__ . '/../models/FinanceiroModel.php';
 
 class FinanceiroController
 {

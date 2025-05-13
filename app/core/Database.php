@@ -10,7 +10,7 @@ class Database
 
     public function __construct()
     {
-        $env = parse_ini_file(__DIR__ . '/../.env');
+        $env = parse_ini_file(__DIR__ . '/../../.env');
 
         $this->host = $env['DB_HOST'];
         $this->dbname = $env['DB_NAME'];

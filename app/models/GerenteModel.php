@@ -1,27 +1,31 @@
 <?php
 
 namespace models;
+require_once __DIR__ . '/UsuarioModel.php';
+require_once __DIR__ . '/../core/Database.php';
 
 class GerenteModel extends UsuarioModel
 {
-    public function salvarVendedor() {
-        $sql = "INSERT INTO usuarios (nome, email, senha, tipo, regiao_atuacao, telefone, cargo, salario)
-            VALUES (:nome, :email, :senha, :tipo, :regiaoAtuacao, :telefone, :cargo, :salario)";
+    public static function salvarGerente($dados) {
+        try {
+            $db = new \Database();
+            $pdo = $db->connect();
 
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->bindParam(':nome', $this->nome);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':senha', $this->senha);
-        $stmt->bindParam(':tipo', $this->tipo);
-        $stmt->bindParam(':regiaoAtuacao', $this->regiaoAtuacao);
-        $stmt->bindParam(':telefone', $this->telefone);
-        $stmt->bindParam(':cargo', $this->cargo);
-        $stmt->bindParam(':salario', $this->salario);
+            $sql = "INSERT INTO usuarios (nome, telefone, email, cargo, regiao_atuacao, salario, senha)
+                    VALUES (:nome, :telefone, :email, :cargo, :regiao, :salario, :senha)";
 
-        return $stmt->execute();
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':nome', $dados['nome']);
+            $stmt->bindParam(':telefone', $dados['telefone']);
+            $stmt->bindParam(':email', $dados['email']);
+            $stmt->bindParam(':cargo', $dados['cargo']);
+            $stmt->bindParam(':regiao', $dados['regiao']);
+            $stmt->bindParam(':salario', $dados['salario']);
+            $stmt->bindParam(':senha', $dados['senha']);
+
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            throw new Exception("Erro ao salvar usuário: " . $e->getMessage());
+        }
     }
-
-
-
-
 }

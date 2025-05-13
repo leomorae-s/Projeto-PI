@@ -111,19 +111,19 @@
 
   <main>
     <div class="form-container">
-      <form>
+      <form method="post">
         <div class="form-row">
-          <input type="text" placeholder="Nome da empresa" required>
-          <input type="text" placeholder="Tipo de empresa" required>
-          <input type="email" placeholder="E-mail" required>
+          <input type="text" placeholder="Nome da empresa" name="empresa" required>
+          <input type="text" placeholder="Tipo de empresa" name="tipo_empresa" required>
+          <input type="email" placeholder="E-mail" name="email" required>
         </div>
         <div class="form-row">
-          <input type="text" placeholder="CNPJ" required>
-          <input type="text" placeholder="Local" required>
-          <input type="text" placeholder="Telefone" required>
+          <input type="text" placeholder="CNPJ" name="cnpj" required>
+          <input type="text" placeholder="Local" name="local" required>
+          <input type="text" placeholder="Telefone" name="telefone" required>
         </div>
         <div class="form-row">
-          <input type="password" placeholder="Senha" class="full-width" required>
+          <input type="password" placeholder="Senha" name="senha" class="full-width" required>
         </div>
         <p class="info-text">
           Ao criar uma conta, você concorda com os Termos de Serviço. Para obter mais informações sobre as práticas de privacidade do FinTrack, consulte a Declaração de Privacidade do FinTrack. Ocasionalmente, enviaremos a você e-mails relacionados à conta.
@@ -132,25 +132,5 @@
       </form>
     </div>
   </main>
-
-  <script>
-    function toggleMenu() {
-      const sidebar = document.getElementById('sidebar');
-      const isOpen = sidebar.style.left === '0px';
-      sidebar.style.left = isOpen ? '-250px' : '0px';
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuIcon = document.getElementById('menu-icon');
-      if (menuIcon) {
-        menuIcon.addEventListener('click', toggleMenu);
-      }
-    });
-
-    fetch('menu.html')
-      .then(response => response.text())
-      .then(html => {
-        document.getElementById("menu-placeholder").innerHTML = html;
-      });
-  </script>
 </body>
 </html>

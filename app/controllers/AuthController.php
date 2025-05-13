@@ -1,12 +1,14 @@
 <?php
 
-require_once 'core/Database.php';
+require_once __DIR__ . '/../core/Database.php';
+require_once __DIR__ . '/../models/GerenteModel.php';
+
 
 class AuthController
 {
     public function showLogin()
     {
-        require 'app/views/auth/login.php';
+        require_once __DIR__ . '/../views/auth/login.php';
     }
 
     public function login()
@@ -19,7 +21,7 @@ class AuthController
         $db = new Database();
         $pdo = $db->connect();
 
-        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
+        $stmt = $pdo->prepare("SELECT * FROM empresas WHERE email = ?");
         $stmt->execute([$email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -40,5 +42,64 @@ class AuthController
         session_start();
         session_destroy();
         header('Location: /login');
+    }
+
+    public function showRegister() {
+        require_once __DIR__ . '/../views/auth/cadastro.php';
+    }
+
+    public function register() {
+        $nomeEmpresa = $_POST['empresa'];
+        $tipo_empresa = $_POST['tipo_empresa'];
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+        $cnpj = $_POST['cnpj'];
+        $local = $_POST['local'];
+        $telefone = $_POST['telefone'];
+
+        $db = new Database();
+        $pdo = $db->connect();
+
+        $sql = "INSERT INTO empresas (nome, tipo, email, senha, cnpj, localizacao, telefone) 
+        VALUES (:nome, :tipo, :email, :senha, :cnpj, :local, :telefone)";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            ':nome' => $nomeEmpresa,
+            ':tipo' => $tipo_empresa,
+            ':email' => $email,
+            ':senha' => password_hash($senha, PASSWORD_DEFAULT),
+            ':cnpj' => $cnpj,
+            ':local' => $local,
+            ':telefone' => $telefone,
+        ]);
+
+        Redirect::redirect("/login");
+    }
+
+    public function showCadastroFuncionario() {
+        require_once __DIR__ . '/../views/auth/cadastro_funcionario.php';
+    }
+
+    public function salvarFuncionario() {
+        $dados = [
+            'nome'     => $_POST['nome'],
+            'telefone' => $_POST['telefone'],
+            'email'    => $_POST['email'],
+            'cargo'    => $_POST['cargo'],
+            'regiao'   => $_POST['regiao'],
+            'salario'  => $_POST['salario'],
+            'senha'    => password_hash($_POST['senha'], PASSWORD_DEFAULT)
+        ];
+
+        try {
+            if (\models\GerenteModel::salvarGerente($dados)) {
+                echo "Funcionário cadastrado com sucesso!";
+            } else {
+                echo "Erro ao cadastrar funcionário.";
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 }
