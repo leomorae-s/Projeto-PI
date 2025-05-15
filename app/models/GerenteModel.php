@@ -1,6 +1,8 @@
 <?php
 
 namespace models;
+use PDO;
+
 require_once __DIR__ . '/UsuarioModel.php';
 require_once __DIR__ . '/../core/Database.php';
 
@@ -27,5 +29,15 @@ class GerenteModel extends UsuarioModel
         } catch (PDOException $e) {
             throw new Exception("Erro ao salvar usuário: " . $e->getMessage());
         }
+    }
+
+    public static function listarGerentes() {
+        $db = new \Database();
+        $pdo = $db->connect();
+
+        $sql = "SELECT DISTINCT nome, cargo FROM usuarios";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $funcionarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }

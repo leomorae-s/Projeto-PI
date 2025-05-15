@@ -2,10 +2,16 @@
 
 require_once __DIR__ . '/../core/Database.php';
 require_once __DIR__ . '/../models/GerenteModel.php';
+require_once __DIR__ . '/../helpers/Redirect.php';
 
 
 class AuthController
 {
+
+    public function showInicio() {
+        require_once __DIR__ . '/../views/home.php';
+    }
+
     public function showLogin()
     {
         require_once __DIR__ . '/../views/auth/login.php';
@@ -21,7 +27,7 @@ class AuthController
         $db = new Database();
         $pdo = $db->connect();
 
-        $stmt = $pdo->prepare("SELECT * FROM empresas WHERE email = ?");
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
         $stmt->execute([$email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -74,7 +80,27 @@ class AuthController
             ':telefone' => $telefone,
         ]);
 
-        Redirect::redirect("/login");
+        Redirect::redirect("/funcionario");
+    }
+
+    public static function listarEmpresas() {
+        $db = new Database();
+        $pdo = $db->connect();
+
+        $sql = "SELECT DISTINCT nome FROM empresas";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $empresas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public static function listarUsuarios() {
+        $db = new Database();
+        $pdo = $db->connect();
+
+        $sql = "SELECT DISTINCT nome FROM usuarios";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        return $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function showCadastroFuncionario() {
@@ -94,12 +120,16 @@ class AuthController
 
         try {
             if (\models\GerenteModel::salvarGerente($dados)) {
-                echo "Funcionário cadastrado com sucesso!";
+                Redirect::redirect("/funcionario");
             } else {
                 echo "Erro ao cadastrar funcionário.";
             }
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+    }
+
+    public function showFuncionario() {
+        require_once __DIR__ . '/../views/ver_funcionario.php';
     }
 }

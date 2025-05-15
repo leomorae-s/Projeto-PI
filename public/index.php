@@ -3,12 +3,18 @@
 require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/VendaController.php';
 require_once '../app/controllers/FinanceiroController.php';
+require_once '../app/controllers/DespesasController.php';
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch ($uri) {
     case '/':
+        if($method === 'GET') {
+            (new AuthController())->showInicio();
+        }
+        break;
+    case '/register':
         if($method === 'GET'){
             (new AuthController())->showRegister();
         } elseif ($method === 'POST') {
@@ -64,6 +70,19 @@ switch ($uri) {
             (new AuthController())->showCadastroFuncionario();
         } elseif ($method === 'POST') {
             (new AuthController())->salvarFuncionario();
+        }
+        break;
+    case '/despesas':
+        if($method === 'GET') {
+            (new \controllers\DespesasController())->showDespesas();
+        } elseif($method === 'POST'){
+            (new \controllers\DespesasController())->despesasForm();
+        }
+        break;
+
+    case '/verFuncionarios':
+        if($method === 'GET') {
+            (new AuthController())->showFuncionario();
         }
         break;
 

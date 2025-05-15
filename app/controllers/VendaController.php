@@ -13,10 +13,10 @@ class VendaController
             exit;
         }
 
-        $vendaModel = new VendaModel();
-        $vendas = $vendaModel->listar();
+        //$vendaModel = new VendaModel();
+        //$vendas = $vendaModel->listar();
 
-        require 'app/views/vendas/index.php';
+        require_once __DIR__ . '/../views/vendas.php';
     }
 
     public function nova()
@@ -27,10 +27,10 @@ class VendaController
             exit;
         }
 
-        $produtoModel = new ProdutoModel();
-        $produtos = $produtoModel->listar();
+        //$produtoModel = new ProdutoModel();
+        //$produtos = $produtoModel->listar();
 
-        require 'app/views/vendas/nova.php';
+        require_once __DIR__ . '/../views/cadastroVendas.php';
     }
 
     public function salvar()
