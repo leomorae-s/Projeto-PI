@@ -30,7 +30,7 @@ class DespesasModel
         $db = new \Database();
         $pdo = $db->connect();
 
-        $sql = "SELECT DISTINCT categoria FROM despesas";
+        $sql = "SELECT DISTINCT categoria, id, subcategoria FROM despesas";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         return $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);

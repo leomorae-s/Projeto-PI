@@ -1,3 +1,43 @@
+<?php
+    require_once __DIR__ . '/../core/Database.php';
+
+    $db = new \Database();
+    $pdo = $db->connect();
+
+    // Buscar todos os vendedor_id distintos
+    $sqlVendedores = "SELECT DISTINCT vendedor_id FROM vendas WHERE vendedor_id IS NOT NULL AND vendedor_id != ''";
+    $stmtVendedores = $pdo->prepare($sqlVendedores);
+    $stmtVendedores->execute();
+    $vendedores_ids = $stmtVendedores->fetchAll(PDO::FETCH_COLUMN);
+
+    // Buscar todos os produto_id distintos
+    $sqlProdutos = "SELECT DISTINCT produto_id FROM vendas WHERE produto_id IS NOT NULL AND produto_id != ''";
+    $stmtProdutos = $pdo->prepare($sqlProdutos);
+    $stmtProdutos->execute();
+    $produtos_ids = $stmtProdutos->fetchAll(PDO::FETCH_COLUMN);
+
+    // Buscar nomes dos vendedores
+    $vendedores = [];
+    if ($vendedores_ids) {
+        $placeholdersV = implode(',', array_fill(0, count($vendedores_ids), '?'));
+        $sqlNomesVendedores = "SELECT id, nome FROM usuarios WHERE id IN ($placeholdersV)";
+        $stmtNomesVendedores = $pdo->prepare($sqlNomesVendedores);
+        $stmtNomesVendedores->execute($vendedores_ids);
+        $vendedores = $stmtNomesVendedores->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Buscar nomes dos produtos
+    $produtos = [];
+    if ($produtos_ids) {
+        $placeholdersP = implode(',', array_fill(0, count($produtos_ids), '?'));
+        $sqlNomesProdutos = "SELECT id, nome FROM produtos WHERE id IN ($placeholdersP)";
+        $stmtNomesProdutos = $pdo->prepare($sqlNomesProdutos);
+        $stmtNomesProdutos->execute($produtos_ids);
+        $produtos = $stmtNomesProdutos->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,15 +58,63 @@
       color: #1e8449;
     }
 
+    /* Header fixo no topo */
     header {
-      background: #27ae60;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.5rem;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background-color: #1e8449;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1001; /* maior que a sidebar */
     }
+
+    header .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    header .logout-btn {
+        background-color: #68d597;
+        border: none;
+        padding: 8px 16px;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    header .menu-icon {
+        cursor: pointer;
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        position: fixed;
+        top: 60px; /* altura do header */
+        left: 0;
+        width: 220px; /* mesma largura usada no margin-left do main */
+        height: calc(100vh - 60px); /* para não cobrir o header */
+        background-color: #2c3e50;
+        padding-top: 20px;
+        z-index: 1000;
+        color: white;
+    }
+
+    /* Conteúdo */
+    .main-content {
+        margin-left: 220px;
+        padding: 80px 20px 20px 20px; /* top 80px por causa do header */
+        background-color: #f4f4f4;
+        min-height: calc(100vh - 60px);
+    }
+
 
     .menu-icon {
       font-size: 1.7rem;
@@ -49,8 +137,12 @@
       font-weight: 600;
     }
 
+
     main {
-      padding: 2rem;
+        margin-left: 220px; /* empurra o conteúdo pra direita, evitando ficar atrás da sidebar */
+        padding: 80px 20px 20px 20px; /* padding-top > header para não ficar atrás */
+        background-color: #f4f4f4;
+        min-height: calc(100vh - 60px);
     }
 
     .top-info {
@@ -162,6 +254,8 @@
     <button class="logout-btn">Logout</button>
   </header>
 
+  <?php require_once __DIR__ . '/dashboard/sidebar.php'?>
+
   <main>
     <div class="top-info">
       <h2>Registro de Vendas</h2>
@@ -176,27 +270,19 @@
       <thead>
         <tr>
           <th>Vendedor</th>
-          <th>Comprovante</th>
-          <th>Remover</th>
+            <th>Produto</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>Antonio Leonardo</td>
-          <td><button class="comprovante-btn">Visualizar PDF</button></td>
-          <td><button class="remove-btn">&times;</button></td>
-        </tr>
-        <tr>
-          <td>Igor Gonsalves</td>
-          <td><button class="comprovante-btn">Visualizar PDF</button></td>
-          <td><button class="remove-btn">&times;</button></td>
-        </tr>
-        <tr>
-          <td>Carla Ferreira</td>
-          <td><button class="comprovante-btn">Visualizar PDF</button></td>
-          <td><button class="remove-btn">&times;</button></td>
-        </tr>
-      </tbody>
+        <tbody>
+        <?php foreach ($vendedores as $vendedor): ?>
+            <?php foreach ($produtos as $produto): ?>
+            <tr>
+                <td><?php echo htmlspecialchars($vendedor['nome']); ?></td>
+                <td><?php echo htmlspecialchars($produto['nome']); ?></td>
+            </tr>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+        </tbody>
     </table>
   </main>
 </body>

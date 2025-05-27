@@ -3,6 +3,8 @@
 namespace controllers;
 use Database;
 use helpers\View;
+use PDO;
+use PDOException;
 use Redirect;
 use helpers\Auth;
 
@@ -44,4 +46,33 @@ class  UsuarioController{
          Redirect::redirect("/");
 
         }
+
+        public function editUsuario() {
+            require_once __DIR__ . '/../views/funcionarioEdit.php';
+        }
+
+    public function postUsuario() {
+        $db = new \Database();
+        $pdo = $db->connect();
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+            $nome = $_POST['nome'] ?? '';
+            $regiao_atuacao = $_POST['regiao_atuacao'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $salario = $_POST['salario'] ?? '';
+            $cargo = $_POST['cargo'] ?? '';
+            $telefone = $_POST['telefone'] ?? '';
+
+            try {
+                $stmt = $pdo->prepare('UPDATE usuarios SET nome = ?, regiao_atuacao = ?, email = ?, salario = ?, cargo = ?, telefone = ? WHERE id = ?');
+                $stmt->execute([$nome, $regiao_atuacao, $email, $salario,$cargo,$telefone,  $id]);
+
+                header("Location: /verFuncionarios");
+                exit;
+            } catch (PDOException $e) {
+                echo "Erro ao atualizar: " . $e->getMessage();
+            }
+        }
+    }
 }

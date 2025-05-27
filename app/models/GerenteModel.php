@@ -35,7 +35,7 @@ class GerenteModel extends UsuarioModel
         $db = new \Database();
         $pdo = $db->connect();
 
-        $sql = "SELECT DISTINCT nome, cargo FROM usuarios";
+        $sql = "SELECT DISTINCT nome, cargo, id FROM usuarios";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         return $funcionarios = $stmt->fetchAll(PDO::FETCH_ASSOC);

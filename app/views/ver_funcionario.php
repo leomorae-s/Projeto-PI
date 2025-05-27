@@ -26,6 +26,11 @@
             color: #333;
         }
 
+        .container {
+            padding: 30px;
+            margin-left: 250px; /* Adiciona espaço da sidebar */
+        }
+
         .topbar{
             background: #18B95A;
             display: flex;
@@ -139,6 +144,8 @@
     <button class="logout">Logout</button>
   </header>
 
+  <?php require_once __DIR__ . '/dashboard/sidebar.php'?>
+
   <main class="container">
     <h2>Funcionários</h2>
 
@@ -148,7 +155,8 @@
         <button class="btn-buscar"><span class="material-symbols-outlined" style="font-size: 18px;">search</span>
         </button>
       </div>
-      <button class="btn-cadastrar"><a href="../../app/views/auth/cadastro_funcionario.php">Cadastrar</a></button>
+        <a href="/funcionario" class="btn-cadastrar">Cadastrar</a>
+
     </div>
 
     <table class="tabela">
@@ -164,7 +172,9 @@
             <tr>
                 <td><?php echo htmlspecialchars($linha['nome']); ?></td>
                 <td><?php echo htmlspecialchars($linha['cargo']); ?></td>
-                <td><button class="btn-edit"><span class="material-symbols-outlined">edit_note</span></button></td>
+                <td>
+                    <a href="/funcionario/editar?id=<?= $linha['id'] ?>">Editar Funcionario</a>
+                </td>
 
             </tr>
         <?php endforeach; ?>

@@ -1,9 +1,12 @@
 <?php
-
+session_start();
 require_once '../app/controllers/AuthController.php';
 require_once '../app/controllers/VendaController.php';
 require_once '../app/controllers/FinanceiroController.php';
 require_once '../app/controllers/DespesasController.php';
+require_once '../app/controllers/ClienteController.php';
+require_once '../app/controllers/UsuarioController.php';
+require_once '../app/controllers/ProdutoController.php';
 
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $method = $_SERVER['REQUEST_METHOD'];
@@ -42,7 +45,12 @@ switch ($uri) {
         break;
 
     case '/vendas/nova':
-        (new VendaController())->nova();
+        if($method === 'GET') {
+            (new VendaController())->nova();
+        } elseif ($method === 'POST') {
+            (new VendaController())->postVenda();
+        }
+
         break;
 
     case '/vendas/salvar':
@@ -80,9 +88,74 @@ switch ($uri) {
         }
         break;
 
+    case '/despesas/visualizar':
+        if($method === 'GET') {
+            (new \controllers\DespesasController())->visuDespesas();
+        }
+        break;
+
+    case '/despesas/editar':
+        if($method === 'GET') {
+            (new \controllers\DespesasController())->editarDespesa();
+        } elseif ($method === 'POST') {
+            (new \controllers\DespesasController())->postDespesa();
+        }
+        break;
+
     case '/verFuncionarios':
         if($method === 'GET') {
             (new AuthController())->showFuncionario();
+        } elseif($method === 'POST'){
+            (new AuthController())->salvarFuncionario();
+        }
+        break;
+    case '/cliente':
+        if($method === 'GET') {
+            (new controllers\ClienteController())->index();
+        }
+        break;
+
+    case '/empresas/editar':
+        if($method === 'GET') {
+            (new controllers\ClienteController())->edit();
+        } elseif ($method === 'POST') {
+            (new controllers\ClienteController())->postEmpresas();
+        }
+        break;
+
+    case '/funcionario/editar':
+        if($method === 'GET') {
+            (new controllers\UsuarioController())->editUsuario();
+        } elseif ($method === 'POST') {
+            (new controllers\UsuarioController())->postUsuario();
+        }
+        break;
+
+    case '/produtos':
+        if($method === 'GET') {
+            (new controllers\ProdutoController())->listar();
+        }
+        break;
+
+    case '/cadastroProdutos':
+        if($method === 'GET') {
+            (new controllers\ProdutoController())->produtoForm();
+        }elseif($method === 'POST') {
+            (new controllers\ProdutoController())->create();
+        }
+        break;
+
+    case '/produtos/edit':
+        if($method === 'GET') {
+            (new controllers\ProdutoController())->produtoEdit();
+        }elseif($method === 'POST') {
+            (new controllers\ProdutoController())->postProduto();
+        }
+        break;
+
+    case '/controlerFinanceiro':
+        if($method === 'GET') {
+            (new FinanceiroController())->index();
         }
         break;
 

@@ -10,9 +10,5 @@
 <body>
     <input type="hidden" name="id" value="<?php echo htmlspecialchars($id); ?>">
 
-    <input type="text" id="categoria" name="categoria" value="<?php echo htmlspecialchars($categoria); ?>">
-    <input type="text" id="subcategoria" name="subcategoria" value="<?php echo htmlspecialchars($subcategoria); ?>">
-    <input type="number" step="0.01" id="valor" name="valor" value="<?php echo htmlspecialchars($valor); ?>">
-    <input type="date" id="data" name="data" value="<?php echo htmlspecialchars($data); ?>">
 </body>
 </html>

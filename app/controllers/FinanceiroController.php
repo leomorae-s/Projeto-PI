@@ -12,11 +12,11 @@ class FinanceiroController
             exit;
         }
 
-        $model = new FinanceiroModel();
-        $lancamentos = $model->listar();
-        $totais = $model->totalPorTipo();
+        //$model = new FinanceiroModel();
+        //$lancamentos = $model->listar();
+        //$totais = $model->totalPorTipo();
 
-        require 'app/views/financeiro/index.php';
+        require __DIR__ . '/../views/controlerFinanceiro.php';
     }
 
     public function novo()

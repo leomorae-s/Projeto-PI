@@ -1,3 +1,8 @@
+<?php
+    require_once __DIR__ . '/../controllers/AuthController.php';
+    $empresas = AuthController::listarEmpresas();
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -104,10 +109,12 @@
     <button class="logout-btn">Logout</button>
   </header>
 
+  <?php require_once __DIR__ . '/dashboard/sidebar.php'?>?>
+
   <main>
     <div class="top-bar">
       <input type="text" class="search-input" placeholder="Pesquisar empresas..." onkeyup="filtrarEmpresas()">
-      <button class="add-btn" onclick="cadastrarEmpresa()">Cadastrar</button>
+      <a href="/register" class="add-btn" >Cadastrar</a>
     </div>
 
     <table>
@@ -119,7 +126,15 @@
         </tr>
       </thead>
       <tbody id="tabela-empresas">
-
+      <?php foreach ($empresas as $linha): ?>
+          <tr>
+              <td><?= htmlspecialchars($linha['nome']) ?></td>
+              <td><?= htmlspecialchars($linha['cnpj']) ?></td>
+              <td>
+                  <a href="/empresas/editar?id=<?= $linha['id'] ?>">Editar Empresas</a>
+              </td>
+          </tr>
+      <?php endforeach; ?>
       </tbody>
     </table>
   </main>
@@ -139,52 +154,6 @@
         linha.style.display = nomeEmpresa.includes(filtro) ? "" : "none";
       });
     }
-  
-    function cadastrarEmpresa() {
-      window.location.href = "cadastro.html";
-    }
-  
-    function editarEmpresa(nome, cnpj) {
-      localStorage.setItem("empresaEditando", JSON.stringify({ nome, cnpj }));
-      window.location.href = "editar.html";
-    }
-  
-    function carregarEmpresas() {
-      let empresas = JSON.parse(localStorage.getItem("empresas")) || [
-        { nome: "FinTech Brasil", cnpj: "12.345.678/0001-90" },
-        { nome: "Eco Soluções", cnpj: "98.765.432/0001-12" }
-      ];
-  
-      const tabela = document.getElementById("tabela-empresas");
-      tabela.innerHTML = ""; 
-  
-      empresas.forEach((empresa) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${empresa.nome}</td>
-          <td>${empresa.cnpj}</td>
-          <td><button onclick='editarEmpresa("${empresa.nome}", "${empresa.cnpj}")'>Editar</button></td>
-        `;
-        tabela.appendChild(tr);
-      });
-    }
-    function toggleMenu() {
-      const sidebar = document.getElementById('sidebar');
-      const isOpen = sidebar.style.left === '0px';
-      sidebar.style.left = isOpen ? '-250px' : '0px';
-    }
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuIcon = document.getElementById('menu-icon');
-      if (menuIcon) {
-        menuIcon.addEventListener('click', toggleMenu);
-      }
-    });
-    fetch('menu.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById("menu-placeholder").innerHTML = data;
-        carregarEmpresas();
-      });
   </script>  
 </body>
 </html>

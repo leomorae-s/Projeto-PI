@@ -19,15 +19,62 @@
         }
 
 
+        /* Header fixo no topo */
         header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #2ecc71;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: #1e8449;
             color: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1001; /* maior que a sidebar */
         }
+
+        header .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        header .logout-btn {
+            background-color: #e74c3c;
+            border: none;
+            padding: 8px 16px;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        header .menu-icon {
+            cursor: pointer;
+            font-size: 24px;
+            margin-right: 10px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 60px; /* abaixo do header */
+            left: 0;
+            width: 220px;
+            height: calc(100vh - 60px); /* ajusta pra não passar do header */
+            background-color: #1e8449;
+            padding-top: 20px;
+            z-index: 1000;
+        }
+
+        /* Conteúdo */
+        .main-content {
+            margin-left: 220px;
+            padding: 80px 20px 20px 20px; /* top 80px por causa do header */
+            background-color: #f4f4f4;
+            min-height: calc(100vh - 60px);
+        }
+
 
         .menu-icon {
             display: flex;
@@ -201,6 +248,7 @@
   
 </head>
 <body>
+
   <header>
     <div class="menu-icon">
       <i class="fas fa-bars"></i>
@@ -209,19 +257,13 @@
     <button class="logout">Logout</button>
   </header>
 
+  <?php require_once __DIR__ . '/dashboard/sidebar.php'?>
   
   <main id="listagemSection" class="active">
     <div class="container">
       <h2>Despesa</h2>
 
       <div class="controls">
-        <div class="dropdown">
-          <label for="tipo">Tipo</label>
-          <select id="tipo">
-            <option>Funcionario</option>
-            <option>Outro</option>
-          </select>
-        </div>
         <input type="text" class="search-input" placeholder="Buscar...">
         <button class="cadastrar">Cadastrar</button>
       </div>
@@ -231,21 +273,22 @@
         <thead>
           <tr>
             <th>Tipo</th>
-            <th>Relatório</th>
+            <th>SubCategoria</th>
             <th>Editar</th>
           </tr>
         </thead>
           <tbody>
           <?php foreach ($categorias as $linha): ?>
               <tr>
-                  <td><?php echo htmlspecialchars($linha['categoria']); ?></td>
-                  <td><i class="fas fa-file-alt"></i></td>
+                  <td><?= htmlspecialchars($linha['categoria']) ?></td>
                   <td>
-                      <a href="/despesas/editar">
-                          <i class="fas fa-pen" style="cursor:pointer;"></i>
+                      <?= htmlspecialchars($linha['subcategoria']) ?>
+                  </td>
+                  <td>
+                      <a href="/despesas/editar?id=<?= $linha['id'] ?>">
+                          Editar Despesas
                       </a>
                   </td>
-
               </tr>
           <?php endforeach; ?>
           </tbody>

@@ -35,9 +35,10 @@ class AuthController
             $_SESSION['usuario'] = [
                 'id' => $usuario['id'],
                 'nome' => $usuario['nome'],
-                'tipo' => $usuario['tipo']
+                'tipo' => $usuario['tipo'],
+                'salario' => $usuario['salario'],
             ];
-            header('Location: /dashboard');
+            header('Location: /controlerFinanceiro');
         } else {
             header('Location: /login?erro=1');
         }
@@ -87,7 +88,7 @@ class AuthController
         $db = new Database();
         $pdo = $db->connect();
 
-        $sql = "SELECT DISTINCT nome FROM empresas";
+        $sql = "SELECT DISTINCT nome, id, cnpj FROM empresas";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
         return $empresas = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -97,9 +98,8 @@ class AuthController
         $db = new Database();
         $pdo = $db->connect();
 
-        $sql = "SELECT DISTINCT nome FROM usuarios";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
+        $stmt = $pdo->prepare("SELECT nome, id FROM usuarios WHERE cargo = ?");
+        $stmt->execute(['Vendedor']);
         return $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
