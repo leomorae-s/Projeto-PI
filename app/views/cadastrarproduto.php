@@ -154,7 +154,7 @@
 
               <div>
                   <label for="estoque">Estoque</label>
-                  <input type="text" id="estoque" name="estoque">
+                  <input type="number" id="estoque" name="estoque" min="0">
               </div>
 
               <div>

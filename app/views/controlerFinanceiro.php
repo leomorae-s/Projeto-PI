@@ -8,22 +8,26 @@
     }
 
     // Dados do usuário logado
-    $salario=$_SESSION['usuario']['salario'];
-    $vendedorId = $_SESSION['usuario']['id'];
+    $salario = $_SESSION['usuario']['salario'];
+    $salarioFormatado = number_format($salario, 2, ',', '.');
+    $vendedorId = $_SESSION['usuario']['id']; // ID do vendedor logado
 
-    $db = new \Database();
+    $db = new \Database(); // Supondo que sua classe Database esteja configurada corretamente
     $pdo = $db->connect();
 
+    // Calcula o total de vendas do vendedor logado
     $stmt = $pdo->prepare("SELECT SUM(total) AS total_vendas FROM vendas WHERE vendedor_id = ?");
     $stmt->execute([$vendedorId]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    // Conta a quantidade de vendas do vendedor logado
     $stmt = $pdo->prepare("SELECT COUNT(*) AS quantidade_vendas FROM vendas WHERE vendedor_id = ?");
     $stmt->execute([$vendedorId]);
     $vendas = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    $stmt = $pdo->prepare("SELECT descricao, data, quantidade, total FROM vendas ORDER BY data DESC LIMIT 5");
-    $stmt->execute();
+    // Seleciona as últimas 5 vendas APENAS do vendedor logado
+    $stmt = $pdo->prepare("SELECT descricao, data, quantidade, total FROM vendas WHERE vendedor_id = ? ORDER BY data DESC LIMIT 5");
+    $stmt->execute([$vendedorId]); // Adiciona o $vendedorId aqui
     $acoes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     $totalVendas = $result['total_vendas'] ?? 0;
@@ -320,7 +324,7 @@
       <div class="stats-cards">
           <div class="card">
               <h3>Total Vendas</h3>
-              <p><?php echo number_format($totalVendas, 2, ',', '.'); ?></p>
+              <p>R$ <?php echo number_format($totalVendas, 2, ',', '.'); ?></p>
           </div>
           <div class="card">
               <h3>Quantidade de Vendas</h3>
@@ -328,25 +332,33 @@
           </div>
           <div class="card">
               <h3>Salário</h3>
-              <p><?php echo $salario ?></p>
+              <p>R$ <?php echo $salarioFormatado ?></p>
           </div>
           <div class="card">
-              <h3>Total de Lucro</h3>
-              <p><?php echo $lucroTotalFormatado?></p>
+              <h3>Lucro Mensal</h3>
+              <p>R$ <?php echo $lucroTotalFormatado?></p>
           </div>
       </div>
 
       <div class="extra-elements">
           <h3>Vendas Recentes</h3>
           <ul>
-              <?php foreach ($acoes as $venda): ?>
+              <?php
+          if (empty($acoes)) {
+              echo "<p>Nenhuma venda encontrada no seu nome.</p>";
+          } else {
+              foreach ($acoes as $venda): ?>
                   <li>
                       <?= htmlspecialchars($venda['descricao']) ?> -
                       <?= date('d/m/Y', strtotime($venda['data'])) ?> -
-                      Quantidade: <?= $venda['quantidade'] ?> -
+                      Quantidade: <?= htmlspecialchars($venda['quantidade']) // Adicionado htmlspecialchars para segurança ?> -
                       Total: R$ <?= number_format($venda['total'], 2, ',', '.') ?>
                   </li>
-              <?php endforeach; ?>
+              <?php
+              endforeach;
+          } // Fim do else
+          ?>
+
           </ul>
       </div>
   </main>

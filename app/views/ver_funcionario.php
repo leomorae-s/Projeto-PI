@@ -151,15 +151,14 @@
 
     <div class="actions">
       <div class="buscar">
-        <input type="text" placeholder="Buscar..." />
-        <button class="btn-buscar"><span class="material-symbols-outlined" style="font-size: 18px;">search</span>
+        <input type="text" placeholder="Buscar..." class="search-input" onkeyup="filtrarEmpresas()"/>
         </button>
       </div>
         <a href="/funcionario" class="btn-cadastrar">Cadastrar</a>
 
     </div>
 
-    <table class="tabela">
+    <table class="tabela" id="tabela-categorias">
       <thead>
         <tr>
           <th>Funcionários</th>
@@ -181,5 +180,17 @@
         </tbody>
     </table>
   </main>
+
+   <script>
+    function filtrarEmpresas() {
+      const filtro = document.querySelector(".search-input").value.toLowerCase();
+      const linhas = document.querySelectorAll("#tabela-categorias tr");
+  
+      linhas.forEach((linha) => {
+        const nomeEmpresa = linha.children[0].textContent.toLowerCase();
+        linha.style.display = nomeEmpresa.includes(filtro) ? "" : "none";
+      });
+    }
+  </script>
 </body>
 </html>

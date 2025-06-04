@@ -264,12 +264,12 @@
       <h2>Despesa</h2>
 
       <div class="controls">
-        <input type="text" class="search-input" placeholder="Buscar...">
+        <input type="text" class="search-input" placeholder="Buscar..." onkeyup="filtrarEmpresas()">
         <button class="cadastrar">Cadastrar</button>
       </div>
       
 
-      <table>
+      <table class="tabela-categorias" id="tabela-categorias">
         <thead>
           <tr>
             <th>Tipo</th>
@@ -375,6 +375,19 @@
               });
       });
     });
+
+
+    function filtrarEmpresas() {
+      const filtro = document.querySelector(".search-input").value.toLowerCase();
+      const linhas = document.querySelectorAll("#tabela-categorias tr");
+  
+      linhas.forEach((linha) => {
+        const nomeEmpresa = linha.children[0].textContent.toLowerCase();
+        linha.style.display = nomeEmpresa.includes(filtro) ? "" : "none";
+      });
+    }
+
+    
   </script>
 
 </body>

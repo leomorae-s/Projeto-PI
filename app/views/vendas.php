@@ -263,10 +263,10 @@
     </div>
 
     <div class="search-bar">
-      <input type="text" placeholder="Buscar por vendedor..." />
+      <input type="text" placeholder="Buscar por vendedor..." class="search-input" onkeyup="filtrarEmpresas()"/>
     </div>
 
-    <table>
+    <table class="tabela-categorias" id="tabela-categorias">
       <thead>
         <tr>
           <th>Vendedor</th>
@@ -285,5 +285,16 @@
         </tbody>
     </table>
   </main>
+  <script>
+    function filtrarEmpresas() {
+      const filtro = document.querySelector(".search-input").value.toLowerCase();
+      const linhas = document.querySelectorAll("#tabela-categorias tr");
+  
+      linhas.forEach((linha) => {
+        const nomeEmpresa = linha.children[0].textContent.toLowerCase();
+        linha.style.display = nomeEmpresa.includes(filtro) ? "" : "none";
+      });
+    }
+  </script>
 </body>
 </html>
