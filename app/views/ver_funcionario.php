@@ -15,56 +15,81 @@
 
     <style>
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        padding: 0;
         }
 
         body {
-            background: #f9f9f9;
-            color: #333;
+        background-color: #fff;
         }
 
-        .container {
-            padding: 30px;
-            margin-left: 250px; /* Adiciona espaço da sidebar */
-        }
-
-        .topbar{
-            background: #18B95A;
-            display: flex;
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: #18B95A;
             color: white;
-            justify-content: space-between;
-            padding: 10px 20px;
-            align-items: center;
-        }
-        .menu-logo{
             display: flex;
             align-items: center;
-            gap: 40px;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1001; 
         }
 
 
-        .logout {
+        .logout-btn {
             background: #338153;
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
             cursor: pointer;
+            font-weight: 600;
+        }
+        .container h2 {
+            margin-bottom: 1.5rem;
         }
 
-        .container {
-            padding: 30px;
-        }
-
-        .actions {
+        .menu {
             display: flex;
-            justify-content: space-between;
-            margin: 20px 0;
             align-items: center;
         }
+        .logo{
+            font-size:20px;
+            padding-left:5px;
+        }
+
+        .cadastrar {
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s;
+            text-decoration:none;
+            font-size:14px;
+            }
+
+        .cadastrar:hover {
+            background-color: #27ae60;
+            }
+        .search-input {
+            padding: 0.5rem 0.50rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+            }
+        .controls {
+            gap: 13rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            }
 
         .buscar {
             display: flex;
@@ -121,43 +146,45 @@
             cursor: pointer;
             font-size: 16px;
         }
-
-
-        .material-symbols-outlined {
-            font-variation-settings:
-                    'FILL' 0,
-                    'wght' 300,
-                    'GRAD' 0,
-                    'opsz' 20
+        .container {
+            padding: 30px;
         }
-
+        .controls {
+            gap: 13rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            }
+        .container {
+            margin-left: 220px; /* igual à largura da sidebar */
+            padding: 110px 20px 20px 50px; /* top > header height */
+            min-height: calc(100vh - 60px);
+        }
+        td a span{
+            color:rgb(22, 22, 22);
+            padding-left:10px;
+        }   
     </style>
 
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="menu-logo">
-      <span class="material-symbols-outlined">menu</span>
+  <header>
+    <div class="menu">
+      <span class="material-symbols-outlined">clock_loader_60</span>
       <span class="logo">Fin track</span>
     </div>
-    <button class="logout">Logout</button>
+    <button class="logout-btn">Logout</button>
   </header>
 
   <?php require_once __DIR__ . '/dashboard/sidebar.php'?>
 
   <main class="container">
     <h2>Funcionários</h2>
-
-    <div class="actions">
-      <div class="buscar">
-        <input type="text" placeholder="Buscar..." />
-        <button class="btn-buscar"><span class="material-symbols-outlined" style="font-size: 18px;">search</span>
-        </button>
+      <div class="controls">
+        <input type="text" placeholder="Buscar..." class="search-input"/>
+        <a href="/funcionario" class="cadastrar">Cadastrar</a>
       </div>
-        <a href="/funcionario" class="btn-cadastrar">Cadastrar</a>
-
-    </div>
 
     <table class="tabela">
       <thead>
@@ -173,7 +200,7 @@
                 <td><?php echo htmlspecialchars($linha['nome']); ?></td>
                 <td><?php echo htmlspecialchars($linha['cargo']); ?></td>
                 <td>
-                    <a href="/funcionario/editar?id=<?= $linha['id'] ?>">Editar Funcionario</a>
+                    <a href="/funcionario/editar?id=<?= $linha['id'] ?>"><span class="material-symbols-outlined">edit_square</span></a>
                 </td>
 
             </tr>

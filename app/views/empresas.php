@@ -35,14 +35,13 @@
         padding: 0 20px;
         z-index: 1001; 
     }
-
-    .menu-icon {
-      font-size: 24px;
-      cursor: pointer;
+    .menu {
+      display: flex;
+      align-items: center;
     }
-
-    .logo {
-      font-size: 18px;
+    .logo{
+      font-size:20px;
+      padding-left:5px;
     }
 
     .logout-btn {
@@ -54,56 +53,74 @@
       cursor: pointer;
       font-weight: 600;
     }
-
-    main {
-      padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 25px;
-    }
-
-    .search-input {
-      padding: 8px 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 250px;
-    }
-
-    .add-btn {
-      background-color: #2ecc71;
-      color: white;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: white;
-    }
-
-    th, td {
-      text-align: left;
-      padding: 12px 16px;
-      border-bottom: 1px solid #ddd;
-    }
-
-    th {
-      background-color: #f9f9f9;
-    }
-
     .edit-icon {
       cursor: pointer;
       font-size: 18px;
       color: #333;
+    }
+    .container {
+        margin-left: 220px; /* igual à largura da sidebar */
+        padding: 90px 20px 20px 50px; /* top > header height */
+        min-height: calc(100vh - 60px);
+    }
+    .container h2 {
+      margin-bottom: 1.5rem;
+    }
+    .controls {
+      gap: 13rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      }
+    .cadastrar {
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration:none;
+      font-size:14px;
+    }
+
+    .cadastrar:hover {
+      background-color: #27ae60;
+    }
+    .search-input {
+      padding: 0.5rem 0.50rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 200px;
+    }
+    .controls {
+      gap: 13rem;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    table {
+      width: 97%;
+      border-collapse: collapse;
+      margin-left:20px;
+    }
+    th, td {
+      padding: 0.8rem 2rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      font-weight: bold;
+      color: #444;
+    }
+
+    td i {
+      color: #333;
+    }
+    td a span{
+      color:rgb(22, 22, 22);
+      padding-left:10px;
     }
   </style>
 </head>
@@ -113,18 +130,19 @@
 
   <header>
     <div class="menu">
-      <span class="menu-icon">&#9776;</span>
-      <span>Fin track</span>
+      <span class="material-symbols-outlined">clock_loader_60</span>
+      <span class="logo">Fin track</span>
     </div>
     <button class="logout-btn">Logout</button>
   </header>
 
   <?php require_once __DIR__ . '/dashboard/sidebar.php'?>?>
 
-  <main>
-    <div class="top-bar">
+  <main class="container">
+    <h2>Clientes</h2>
+    <div class="controls">
       <input type="text" class="search-input" placeholder="Pesquisar empresas..." onkeyup="filtrarEmpresas()">
-      <a href="/register" class="add-btn" >Cadastrar</a>
+      <a href="/register" class="cadastrar" >Cadastrar</a>
     </div>
 
     <table>
@@ -141,7 +159,7 @@
               <td><?= htmlspecialchars($linha['nome']) ?></td>
               <td><?= htmlspecialchars($linha['cnpj']) ?></td>
               <td>
-                  <a href="/empresas/editar?id=<?= $linha['id'] ?>">Editar Empresas</a>
+                  <a href="/empresas/editar?id=<?= $linha['id'] ?>"><span class="material-symbols-outlined">edit_square</span></a>
               </td>
           </tr>
       <?php endforeach; ?>

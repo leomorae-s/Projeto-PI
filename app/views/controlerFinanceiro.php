@@ -84,17 +84,13 @@
         background-color: #f4f4f4;
         min-height: calc(100vh - 60px);
     }
-
-
-    .menu-icon {
-      font-size: 1.7rem;
-      cursor: pointer;
-      margin-right: 1rem;
+    .menu {
+      display: flex;
+      align-items: center;
     }
-
-    .logo {
-      font-weight: 700;
-      font-size: 1.4rem;
+    .logo{
+      font-size:20px;
+      padding-left:5px;
     }
 
     .logout-btn {
@@ -252,9 +248,6 @@
         margin-top: 0.5rem;
       }
 
-      .menu-icon {
-        font-size: 1.5rem;
-      }
 
       .logout-btn {
         margin-top: 0.5rem;
@@ -282,8 +275,8 @@
 <body>
   <header>
     <div class="menu">
-      <span class="menu-icon">&#9776;</span>
-      <span>Fin track</span>
+      <span class="material-symbols-outlined">clock_loader_60</span>
+      <span class="logo">Fin track</span>
     </div>
     <button class="logout-btn">Logout</button>
   </header>

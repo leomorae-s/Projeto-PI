@@ -140,9 +140,17 @@
       background-color: #e0e0e0;
       color: #000;
     }
+    .btn-delete:hover{
+      background-color:rgb(189, 189, 189);
+      color: #000;
+    }
 
     .btn-save {
       background-color: #28a745;
+      color: white;
+    }
+    .btn-save:hover {
+      background-color: #27ae60;
       color: white;
     }
   </style>

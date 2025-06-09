@@ -15,40 +15,44 @@ $produtos = ProdutoController::options();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>FinTrack - Cadastrar Venda</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
     <style>
         /* Seu CSS permanece igual */
         * {
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'Inter', sans-serif;
         }
 
         body {
-            background: #ffffff;
-            color: #1e8449;
-        }
+            background-color: #fff;
+    }
 
         header {
-            background: #27ae60;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: #18B95A;
             color: white;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 1rem 1.5rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 1001; 
         }
 
-        .menu-icon {
-            font-size: 1.7rem;
-            cursor: pointer;
-            margin-right: 1rem;
+        .menu {
+            display: flex;
+            align-items: center;
         }
-
-        .logo {
-            font-weight: 700;
-            font-size: 1.4rem;
+        .logo{
+            font-size:20px;
+            padding-left:5px;
         }
 
         .logout-btn {
@@ -69,7 +73,6 @@ $produtos = ProdutoController::options();
 
         .form-container {
             background-color: #fff;
-            border: 1px solid #ddd;
             border-radius: 12px;
             padding: 2rem;
             max-width: 600px;
@@ -127,13 +130,25 @@ $produtos = ProdutoController::options();
         }
 
         .btn.cancel {
-            background-color: #f0f0f0;
-            color: #555;
+            background-color: #e0e0e0;
+            color: #000;
+            text-decoration:none;
+            width: 100%;
+            margin-right:20px;
+            text-align:center;
+        }
+        .btn.cancel:hover{
+            background-color:rgb(179, 179, 179);
         }
 
         .btn.submit {
-            background-color: #27ae60;
+            background-color: #2ecc71;
             color: white;
+            width: 100%;
+        }
+        
+        .btn.submit:hover{
+            background-color: #27ae60;
         }
 
         @media (max-width: 600px) {
@@ -153,14 +168,14 @@ $produtos = ProdutoController::options();
     </style>
 </head>
 <body>
-<header>
-    <div style="display: flex; align-items: center;">
-        <div class="menu-icon">&#9776;</div>
-        <div class="logo">FinTrack</div>
+  <header>
+    <div class="menu">
+      <span class="material-symbols-outlined">clock_loader_60</span>
+      <span class="logo">Fin track</span>
     </div>
     <button class="logout-btn">Logout</button>
-</header>
-
+  </header>
+  <?php require_once __DIR__ . '/dashboard/sidebar.php'?>
 <main>
     <div class="form-container">
         <h2>Venda</h2>

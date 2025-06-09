@@ -218,6 +218,9 @@
             background-color: #ccc;
             color: #333;
         }
+        .btn.back:hover{
+          background-color:rgb(167, 167, 167);
+        }
 
         .btn.save {
             background-color: #2ecc71;
@@ -227,6 +230,16 @@
         .btn.save:hover {
             background-color: #27ae60;
         }
+        .form-container {
+          max-width: 700px;
+          width: 100%;
+          padding: 2rem;
+          background-color: #fff;
+          margin-top:100px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+          border-radius: 10px;
+        }
+
     </style>
   
 </head>

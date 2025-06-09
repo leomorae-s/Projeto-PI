@@ -51,10 +51,9 @@
     }
 
     .form-container {
-      max-width: 800px;
-      margin: 40px auto;
       padding: 30px;
-      border: 1px solid #ccc;
+      margin-top:100px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       border-radius: 10px;
     }
 
@@ -91,7 +90,7 @@
     .form-grid select {
       width: 100%;
       padding: 8px;
-      border: 1px solid #999;
+      border: 1px solid #ccc;
       border-radius: 5px;
     }
 
@@ -115,6 +114,9 @@
       color: #000;
       text-decoration:none;
     }
+    .btn-back:hover {
+      background-color:rgb(179, 179, 179);
+    }
 
     .btn-save {
       background-color: #2ecc71;
@@ -123,6 +125,13 @@
     .btn-save:hover {
       background-color: #27ae60;
     }
+    .container {
+        max-width: 700px;
+        width: 100%;
+        padding: 2rem;
+        margin: 0 auto; 
+    }
+
   </style>
 </head>
 <body>
@@ -135,46 +144,47 @@
     <button class="logout-btn">Logout</button>
   </header>
   <?php require_once __DIR__ . '/dashboard/sidebar.php'?>
+  <div class="container">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Cadastro do Produto</h2>
+      </div>
 
-  <div class="form-container">
-    <div class="form-header">
-      <h2>Cadastro do Produto</h2>
-    </div>
+        <form action="" method="POST">
+            <div class="form-grid">
+                <div>
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome">
+                </div>
 
-      <form action="" method="POST">
-          <div class="form-grid">
-              <div>
-                  <label for="nome">Nome</label>
-                  <input type="text" id="nome" name="nome">
-              </div>
+                <div>
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" name="descricao">
+                </div>
 
-              <div>
-                  <label for="descricao">Descrição</label>
-                  <input type="text" id="descricao" name="descricao">
-              </div>
+                <div>
+                    <label for="preco">Preço</label>
+                    <input type="text" id="preco" name="preco">
+                </div>
 
-              <div>
-                  <label for="preco">Preço</label>
-                  <input type="text" id="preco" name="preco">
-              </div>
+                <div>
+                    <label for="estoque">Estoque</label>
+                    <input type="text" id="estoque" name="estoque">
+                </div>
 
-              <div>
-                  <label for="estoque">Estoque</label>
-                  <input type="text" id="estoque" name="estoque">
-              </div>
+                <div>
+                    <label for="categoria">Categoria</label>
+                    <input type="text" id="categoria" name="categoria">
+                </div>
 
-              <div>
-                  <label for="categoria">Categoria</label>
-                  <input type="text" id="categoria" name="categoria">
-              </div>
+            </div>
 
-          </div>
-
-          <div class="form-actions">
-              <a href="/produtos" class="btn btn-back" type="button">Voltar</a>
-              <button class="btn btn-save" type="submit">Salvar</button>
-          </div>
-      </form>
+            <div class="form-actions">
+                <a href="/produtos" class="btn btn-back" type="button">Voltar</a>
+                <button class="btn btn-save" type="submit">Salvar</button>
+            </div>
+        </form>
+  </div>
 
 </body>
 </html>

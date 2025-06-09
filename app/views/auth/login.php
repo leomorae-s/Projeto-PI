@@ -56,6 +56,7 @@
             padding:20px;
             border-radius:8px;
             border:1px solid #ccc;
+            font-size:16px;
         }
         .input-group label{
             padding:5px;
