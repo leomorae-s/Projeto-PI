@@ -62,10 +62,6 @@
       background-color:#18B95A;
 
     }
-    .visual figure img{
-      width: ;
-      height: 400px;
-    }
     .slla{
       display: flex;
       flex-direction:row;

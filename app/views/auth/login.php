@@ -45,7 +45,7 @@
             color:#18B95A;
             text-align:center;  
             font-size:36px;
-            padding-bottom:60px;
+            padding-bottom:100px;
         }
         .input-group{
             display:flex;
@@ -53,7 +53,7 @@
             padding-bottom:12px;
         }
         .input-group input{
-            padding:12px;
+            padding:20px;
             border-radius:8px;
             border:1px solid #ccc;
         }
@@ -72,15 +72,16 @@
         .forgot-password{
             color:#18B95A;
             font-size:15px;
+            padding-bottom:60px;
         }
         button{
             width:100% ;
-            height:40px;
+            height:56px;
             border:none;
             border-radius:8px;
             background:#18B95A;
             color:white;
-            font-size:16px;
+            font-size:18px;
         }
         button:hover{
             background-color:#27ae60;
