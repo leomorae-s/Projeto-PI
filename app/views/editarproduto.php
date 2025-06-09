@@ -74,7 +74,7 @@
       max-width: 700px;
       margin: 40px auto;
       padding: 30px;
-      border: 1px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       border-radius: 10px;
       margin-top:120px;
     }
@@ -107,7 +107,7 @@
     textarea {
       width: 100%;
       padding: 8px;
-      border: 1px solid #999;
+      border: 1px solid #ccc;
       border-radius: 5px;
       resize: none;
     }
