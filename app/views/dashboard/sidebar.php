@@ -5,9 +5,9 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 220px;
+            width: 230px;
             height: 100vh;
-            background-color: #1e8449;
+            background-color: #18B95A;
             padding-top: 80px;
         }
 
@@ -64,19 +64,26 @@
                 margin-left: 180px;
             }
         }
+        .sidebar a{
+            display:flex;
+            align-items:center;
+        }
+        .sidebar a span{
+            padding-right: 10px;
+        }
 
 
     </style>
         <h2>Bem-vindo, <?= htmlspecialchars($_SESSION['usuario']['nome']) ?></h2>
         <p>Tipo: <?= $_SESSION['usuario']['tipo'] ?></p>
-
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
         <div id="sidebar" class="sidebar">
-            <a href="/controlerFinanceiro"><span>📊</span>Controle Financeiro</a>
-            <a href="/despesas"><span>💸</span>Despesas</a>
-            <a href="/vendas"><span>💰</span>Vendas</a>
-            <a href="/produtos"><span>📦</span>Produtos</a>
-            <a href="/cliente"><span>👥</span>Clientes</a>
-            <a href="/verFuncionarios"><span>🧑‍💼</span>Funcionários</a>
+            <a href="/controlerFinanceiro"><span class="material-symbols-outlined">bar_chart</span>Controle Financeiro</a>
+            <a href="/despesas"><span class="material-symbols-outlined">money_off</span>Despesas</a>
+            <a href="/vendas"><span class="material-symbols-outlined">attach_money</span>Vendas</a>
+            <a href="/produtos"><span class="material-symbols-outlined">inventory_2</span>Produtos</a>
+            <a href="/cliente"><span class="material-symbols-outlined">group</span>Clientes</a>
+            <a href="/verFuncionarios"><span class="material-symbols-outlined">person</span>Funcionários</a>
         </div>
 
 

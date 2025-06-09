@@ -28,36 +28,41 @@
     * {
       box-sizing: border-box;
       font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       background-color: #fff;
     }
 
     header {
-      background-color: #28a745;
-      padding: 10px 20px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background-color: #18B95A;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1001; 
     }
 
     .menu {
       display: flex;
       align-items: center;
     }
-
-    .menu-icon {
-      font-size: 24px;
-      margin-right: 10px;
-      cursor: pointer;
+    .logo{
+      font-size:20px;
+      padding-left:5px;
     }
 
     .logout-btn {
-      background: white;
-      color: #27ae60;
+      background: #338153;
+      color: white;
       border: none;
       padding: 0.5rem 1rem;
       border-radius: 20px;
@@ -71,6 +76,7 @@
       padding: 30px;
       border: 1px solid #ccc;
       border-radius: 10px;
+      margin-top:120px;
     }
 
     .form-header {
@@ -84,6 +90,10 @@
 
     .form-group {
       margin-bottom: 20px;
+    }
+    .form-group input{
+      width: 100%;
+      height: 40px;
     }
 
     label {
@@ -140,12 +150,13 @@
 <body>
 
   <header>
-    <div class="menu">
-      <span class="menu-icon">&#9776;</span>
-      <span>Fin track</span>
+   <div class="menu">
+      <span class="material-symbols-outlined">clock_loader_60</span>
+      <span class="logo">Fin track</span>
     </div>
     <button class="logout-btn">Logout</button>
   </header>
+    <?php require_once __DIR__ . '/dashboard/sidebar.php'?>
   <form action="" method="POST">
   <div class="form-container">
       <div class="form-header">
@@ -178,13 +189,12 @@
           <label for="categoria">Categoria</label>
           <input type="text" id="categoria" name="categoria" required value="<?php echo $produtos['categoria'] ?>">
       </div>
+      <div class="form-actions">
+        <button class="btn btn-delete">Voltar</button>
+        <button class="btn btn-save" type="submit">Salvar</button>
+      </div>
   </div>
 
-
-  <div class="form-actions">
-      <button class="btn btn-delete">Deletar</button>
-      <button class="btn btn-save" type="submit">Salvar</button>
-    </div>
   </form>
 
 </body>

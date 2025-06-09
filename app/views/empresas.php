@@ -12,21 +12,28 @@
   <style>
     * {
       box-sizing: border-box;
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
-      background-color: #f1f1f1;
+      background-color: #fff;
     }
 
     header {
-      background-color: #2ecc71;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background-color: #18B95A;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1001; 
     }
 
     .menu-icon {
@@ -39,12 +46,13 @@
     }
 
     .logout-btn {
-      background-color: #3fa96d;
-      border: none;
+      background: #338153;
       color: white;
-      padding: 8px 14px;
-      border-radius: 5px;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
       cursor: pointer;
+      font-weight: 600;
     }
 
     main {
@@ -104,8 +112,10 @@
   <div id="menu-placeholder"></div>
 
   <header>
-    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-    <div class="logo">Fin Track</div>
+    <div class="menu">
+      <span class="menu-icon">&#9776;</span>
+      <span>Fin track</span>
+    </div>
     <button class="logout-btn">Logout</button>
   </header>
 
