@@ -34,50 +34,28 @@ $vendas_detalhadas = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <style>
     * {
       box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
-      font-family: 'Inter', sans-serif;
     }
 
     body {
-      background: #ffffff;
-      color: #1e8449;
+      background-color: #fff;
     }
 
-    /* Header fixo no topo */
     header {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         height: 60px;
-        background-color: #1e8449;
+        background-color: #18B95A;
         color: white;
         display: flex;
         align-items: center;
         justify-content: space-between;
         padding: 0 20px;
-        z-index: 1001; /* maior que a sidebar */
-    }
-
-    header .logo {
-        font-size: 24px;
-        font-weight: bold;
-    }
-
-    header .logout-btn {
-        background-color: #68d597;
-        border: none;
-        padding: 8px 16px;
-        color: white;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    header .menu-icon {
-        cursor: pointer;
-        font-size: 24px;
-        margin-right: 10px;
+        z-index: 1001; 
     }
 
     /* Sidebar */
@@ -101,21 +79,18 @@ $vendas_detalhadas = $stmt->fetchAll(PDO::FETCH_ASSOC);
         min-height: calc(100vh - 60px);
     }
 
-
-    .menu-icon {
-      font-size: 1.7rem;
-      cursor: pointer;
-      margin-right: 1rem;
+    .menu {
+      display: flex;
+      align-items: center;
     }
-
-    .logo {
-      font-weight: 700;
-      font-size: 1.4rem;
+    .logo{
+      font-size:20px;
+      padding-left:5px;
     }
 
     .logout-btn {
-      background: white;
-      color: #27ae60;
+      background: #338153;
+      color: white;
       border: none;
       padding: 0.5rem 1rem;
       border-radius: 20px;
@@ -233,9 +208,9 @@ $vendas_detalhadas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body>
   <header>
-    <div style="display: flex; align-items: center;">
-      <div class="menu-icon">&#9776;</div>
-      <div class="logo">FinTrack</div>
+    <div class="menu">
+      <span class="material-symbols-outlined">clock_loader_60</span>
+      <span class="logo">Fin track</span>
     </div>
     <button class="logout-btn">Logout</button>
   </header>
