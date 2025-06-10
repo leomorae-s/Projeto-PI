@@ -149,7 +149,6 @@
       <div class="form-header">
         <h2>Cadastro do Produto</h2>
       </div>
-
         <form action="" method="POST">
             <div class="form-grid">
                 <div>

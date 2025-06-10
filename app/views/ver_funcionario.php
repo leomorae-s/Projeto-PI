@@ -186,7 +186,7 @@
         <a href="/funcionario" class="cadastrar">Cadastrar</a>
       </div>
 
-    <table class="tabela">
+    <table class="tabela" id="tabela-categorias">
       <thead>
         <tr>
           <th>Funcionários</th>
@@ -208,5 +208,17 @@
         </tbody>
     </table>
   </main>
+
+   <script>
+    function filtrarEmpresas() {
+      const filtro = document.querySelector(".search-input").value.toLowerCase();
+      const linhas = document.querySelectorAll("#tabela-categorias tr");
+  
+      linhas.forEach((linha) => {
+        const nomeEmpresa = linha.children[0].textContent.toLowerCase();
+        linha.style.display = nomeEmpresa.includes(filtro) ? "" : "none";
+      });
+    }
+  </script>
 </body>
 </html>

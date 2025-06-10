@@ -237,11 +237,13 @@ $produtos = ProdutoController::options();
             <div class="form-row">
                 <div class="form-group">
                     <label for="valor">Valor</label>
-                    <input type="number" step="0.01" id="valor" name="valor" placeholder="R$ 0,00"/>
+                    <input type="number" step="0.01" id="valor" name="valor" placeholder="R$ 0,00" min="0"/>
+                    <span id="erroQuantidade" style="color: red;"></span>
                 </div>
                 <div class="form-group">
                     <label for="total">Total</label>
-                    <input type="number" step="0.01" id="total" name="total" placeholder="R$ 0,00" />
+                    <input type="number" step="0.01" id="total" name="total" placeholder="R$ 0,00" min="0"/>
+                    <span id="erroQuantidade" style="color: red;"></span>
                 </div>
             </div>
 
