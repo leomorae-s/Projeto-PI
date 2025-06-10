@@ -4,92 +4,132 @@
     <meta charset="UTF-8">
     <title>Login - Controle Financeiro</title>
     <link rel="stylesheet" href="/front-pi/css/home.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <style>
-        body {
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-
-            /* Centralização total */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            padding: 0;
+        }
+        .slla{
+            display:flex;
+            flex-direction:row;
+        }
+        .visual{
+            width: 60%;
+            height:100vh;
+            background-color:#18B95A;
+        }
+        .login-container{
+            width: 40%;
+            height:100vh;
+        }
+        .logo{
+            display:flex;
+            padding:60px 70px 40px 60px;
+            justify-content:center;
+            align-items:center;
+        }
+        .logo span{
+            font-size:100px;
+            text-align:center;
+            color:#18B95A;
+        }
+        .logo h2{
+            font-size:50px;
+            text-align:center;
+            color:#18B95A;
+        }
+        .welcome{
+            color:#18B95A;
+            text-align:center;  
+            font-size:36px;
+            padding-bottom:100px;
+        }
+        .input-group{
+            display:flex;
+            flex-direction:column;
+            padding-bottom:12px;
+        }
+        .input-group input{
+            padding:20px;
+            border-radius:8px;
+            border:1px solid #ccc;
+            font-size:16px;
+        }
+        .input-group label{
+            padding:5px;
+        }
+        .form{
+            padding:50px;
         }
 
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        .options{
+            display:flex;
+            flex-direction:row-reverse;
+            padding-bottom:12px;
         }
-
-        h2 {
-            color: #18B95A;
-            text-align: center;
-            margin-bottom: 20px;
+        .forgot-password{
+            color:#18B95A;
+            font-size:15px;
+            padding-bottom:60px;
         }
-
-        label {
-            font-size: 14px;
-            color: #333;
+        button{
+            width:100% ;
+            height:56px;
+            border:none;
+            border-radius:8px;
+            background:#18B95A;
+            color:white;
+            font-size:18px;
         }
-
-        input[type="email"],
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 14px;
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            background-color: #18B95A;
-            color: white;
-            padding: 12px;
-            font-size: 15px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #119e49;
-        }
-
-        .error {
-            color: red;
-            font-size: 13px;
-            margin-bottom: 15px;
-            text-align: center;
+        button:hover{
+            background-color:#27ae60;
         }
     </style>
 </head>
 <body>
 
-<div class="login-container">
-    <h2>Login</h2>
+<div class="slla">
+    <div class="visual">
+        <figure>
+            <img src="" alt="">
+        </figure>
+    </div>
 
-    <?php if (isset($_GET['erro'])): ?>
-        <p class="error">Usuário ou senha inválidos!</p>
-    <?php endif; ?>
+    <div class="login-container">
+        <div class="logo">
+            <span class="material-symbols-outlined">clock_loader_60</span>
+            <h2>FinTrack</h2>
 
-    <form action="/login" method="post">
-        <label>Email:</label>
-        <input type="email" name="email" required>
+      </div>
+      <p class="welcome">
+        Bem-vindo de volta!
+      </p>
+        <?php if (isset($_GET['erro'])): ?>
+            <p class="error">Usuário ou senha inválidos!</p>
+        <?php endif; ?>
+            <form action="/login" method="post" class="form">
 
-        <label>Senha:</label>
-        <input type="password" name="senha" required>
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                </div>
 
-        <button type="submit">Entrar</button>
-    </form>
+                <div class="input-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" name="senha" placeholder="Sua senha secreta" required>
+                </div>
+
+                <div class="options">
+                    <a href="/esqueci-senha" class="forgot-password">Esqueci minha senha</a>
+                </div>
+
+                <button type="submit">Entrar</button>
+
+            </form>
+    </div>
 </div>
 
 </body>

@@ -8,36 +8,41 @@
     * {
       box-sizing: border-box;
       font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      margin: 0;
       background-color: #fff;
     }
 
     header {
-      background-color: #28a745;
-      padding: 10px 20px;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background-color: #18B95A;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1001; 
     }
 
     .menu {
       display: flex;
       align-items: center;
     }
-
-    .menu-icon {
-      font-size: 24px;
-      margin-right: 10px;
-      cursor: pointer;
+    .logo{
+      font-size:20px;
+      padding-left:5px;
     }
 
     .logout-btn {
-      background: white;
-      color: #27ae60;
+      background: #338153;
+      color: white;
       border: none;
       padding: 0.5rem 1rem;
       border-radius: 20px;
@@ -46,10 +51,9 @@
     }
 
     .form-container {
-      max-width: 800px;
-      margin: 40px auto;
       padding: 30px;
-      border: 1px solid #ccc;
+      margin-top:100px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       border-radius: 10px;
     }
 
@@ -86,7 +90,7 @@
     .form-grid select {
       width: 100%;
       padding: 8px;
-      border: 1px solid #999;
+      border: 1px solid #ccc;
       border-radius: 5px;
     }
 
@@ -108,67 +112,79 @@
     .btn-back {
       background-color: #e0e0e0;
       color: #000;
+      text-decoration:none;
+    }
+    .btn-back:hover {
+      background-color:rgb(179, 179, 179);
     }
 
     .btn-save {
-      background-color: #28a745;
+      background-color: #2ecc71;
       color: white;
     }
+    .btn-save:hover {
+      background-color: #27ae60;
+    }
+    .container {
+        max-width: 700px;
+        width: 100%;
+        padding: 2rem;
+        margin: 0 auto; 
+    }
+
   </style>
 </head>
 <body>
 
   <header>
     <div class="menu">
-      <span class="menu-icon">&#9776;</span>
-      <span>Fin track</span>
+      <span class="material-symbols-outlined">clock_loader_60</span>
+      <span class="logo">Fin track</span>
     </div>
     <button class="logout-btn">Logout</button>
   </header>
-
-  <div class="form-container">
-    <div class="form-header">
-      <h2>Cadastro do Produto</h2>
-      <div class="date-label">
-        <span>Data</span>
-        <span>📅</span>
+  <?php require_once __DIR__ . '/dashboard/sidebar.php'?>
+  <div class="container">
+    <div class="form-container">
+      <div class="form-header">
+        <h2>Cadastro do Produto</h2>
       </div>
-    </div>
 
-      <form action="" method="POST">
-          <div class="form-grid">
-              <div>
-                  <label for="nome">Nome</label>
-                  <input type="text" id="nome" name="nome">
-              </div>
+        <form action="" method="POST">
+            <div class="form-grid">
+                <div>
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome">
+                </div>
 
-              <div>
-                  <label for="descricao">Descrição</label>
-                  <input type="text" id="descricao" name="descricao">
-              </div>
+                <div>
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" name="descricao">
+                </div>
 
-              <div>
-                  <label for="preco">Preço</label>
-                  <input type="text" id="preco" name="preco">
-              </div>
+                <div>
+                    <label for="preco">Preço</label>
+                    <input type="text" id="preco" name="preco">
+                </div>
 
-              <div>
-                  <label for="estoque">Estoque</label>
-                  <input type="text" id="estoque" name="estoque">
-              </div>
+                <div>
+                    <label for="estoque">Estoque</label>
+                    <input type="text" id="estoque" name="estoque">
+                </div>
 
-              <div>
-                  <label for="categoria">Categoria</label>
-                  <input type="text" id="categoria" name="categoria">
-              </div>
+                <div>
+                    <label for="categoria">Categoria</label>
+                    <input type="text" id="categoria" name="categoria">
+                </div>
 
-          </div>
+            </div>
 
-          <div class="form-actions">
-              <a href="/produtos" class="btn btn-back" type="button">Voltar</a>
-              <button class="btn btn-save" type="submit">Salvar</button>
-          </div>
-      </form>
+            <div class="form-actions">
+                <a href="/produtos" class="btn btn-back" type="button">Voltar</a>
+                <button class="btn btn-save" type="submit">Salvar</button>
+            </div>
+        </form>
+  </div>
 
 </body>
 </html>

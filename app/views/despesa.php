@@ -9,51 +9,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fin Track - Despesa</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="./despesa.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+    * {
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
+    body {
+      background-color: #fff;
+    }
 
-        /* Header fixo no topo */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background-color: #1e8449;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 20px;
-            z-index: 1001; /* maior que a sidebar */
-        }
-
-        header .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        header .logout-btn {
-            background-color: #e74c3c;
-            border: none;
-            padding: 8px 16px;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        header .menu-icon {
-            cursor: pointer;
-            font-size: 24px;
-            margin-right: 10px;
-        }
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 60px;
+        background-color: #18B95A;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        z-index: 1001; 
+    }
 
         /* Sidebar */
         .sidebar {
@@ -62,7 +45,7 @@
             left: 0;
             width: 220px;
             height: calc(100vh - 60px); /* ajusta pra não passar do header */
-            background-color: #1e8449;
+            background-color: #18B95A;
             padding-top: 20px;
             z-index: 1000;
         }
@@ -71,33 +54,36 @@
         .main-content {
             margin-left: 220px;
             padding: 80px 20px 20px 20px; /* top 80px por causa do header */
-            background-color: #f4f4f4;
             min-height: calc(100vh - 60px);
         }
-
-
-        .menu-icon {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .container{
+          margin-left: 220px; /* igual à largura da sidebar */
+          padding: 80px 20px 20px 20px; /* top > header height */
+          min-height: calc(100vh - 60px);
         }
 
-        .logo {
-            font-weight: bold;
-            font-size: 1.2rem;
+
+        .menu{
+          display:flex;
+          align-items:center;
+          justify-content:center;
+        }
+        .logo{
+          font-size:20px;
+          padding-left:5px;
         }
 
-        .logout {
-            background-color: #27ae60;
+        .logout-btn {
+            background: #338153;
             color: white;
             border: none;
             padding: 0.5rem 1rem;
-            border-radius: 6px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: background 0.2s;
-        }
+            font-weight: 600;
+          }
 
-        .logout:hover {
+        .logout-btn:hover {
             background-color: #219150;
         }
 
@@ -108,13 +94,6 @@
 
         main.active, .form-section.active {
             display: block;
-        }
-
-
-        .container {
-            max-width: 900px;
-            margin: auto;
-            background-color: #fff;
         }
 
 
@@ -131,7 +110,6 @@
 
 
         .controls {
-            display: flex;
             gap: 13rem;
             align-items: center;
             margin-bottom: 1.5rem;
@@ -157,6 +135,7 @@
             border-radius: 6px;
             cursor: pointer;
             transition: background 0.2s;
+            font-size:14px;
         }
 
         .cadastrar:hover {
@@ -166,10 +145,11 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-left:20px;
         }
 
         th, td {
-            padding: 0.8rem 1rem;
+            padding: 0.8rem 2rem;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
@@ -181,6 +161,10 @@
 
         td i {
             color: #333;
+        }
+        td a span{
+          color:rgb(22, 22, 22);
+          padding-left:10px;
         }
 
         .form-container {
@@ -234,6 +218,9 @@
             background-color: #ccc;
             color: #333;
         }
+        .btn.back:hover{
+          background-color:rgb(167, 167, 167);
+        }
 
         .btn.save {
             background-color: #2ecc71;
@@ -243,6 +230,15 @@
         .btn.save:hover {
             background-color: #27ae60;
         }
+        .form-container {
+          max-width: 700px;
+          width: 100%;
+          padding: 2rem;
+          background-color: #fff;
+          margin-top:100px;
+          box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+          border-radius: 10px;
+        }
 
     </style>
   
@@ -250,11 +246,11 @@
 <body>
 
   <header>
-    <div class="menu-icon">
-      <i class="fas fa-bars"></i>
+    <div class="menu">
+      <span class="material-symbols-outlined">clock_loader_60</span>
       <span class="logo">Fin track</span>
     </div>
-    <button class="logout">Logout</button>
+    <button class="logout-btn">Logout</button>
   </header>
 
   <?php require_once __DIR__ . '/dashboard/sidebar.php'?>
@@ -286,7 +282,7 @@
                   </td>
                   <td>
                       <a href="/despesas/editar?id=<?= $linha['id'] ?>">
-                          Editar Despesas
+                          <span class="material-symbols-outlined">edit_square</span>
                       </a>
                   </td>
               </tr>

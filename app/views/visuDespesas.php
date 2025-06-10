@@ -21,7 +21,9 @@
 ?>
 <!DOCTYPE html>
 <html>
-<head><title>Detalhes da Despesa</title></head>
+<head><title>Detalhes da Despesa</title>
+</head>
+
 <body>
 <h1>Despesa: <?= htmlspecialchars($despesa['categoria']) ?></h1>
 <ul>
