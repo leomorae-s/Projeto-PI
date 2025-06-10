@@ -5,36 +5,22 @@
     $pdo = $db->connect();
 
     // Buscar todos os vendedor_id distintos
-    $sqlVendedores = "SELECT DISTINCT vendedor_id FROM vendas WHERE vendedor_id IS NOT NULL AND vendedor_id != ''";
-    $stmtVendedores = $pdo->prepare($sqlVendedores);
-    $stmtVendedores->execute();
-    $vendedores_ids = $stmtVendedores->fetchAll(PDO::FETCH_COLUMN);
+$sql = "SELECT
+            u.nome AS nome_vendedor,
+            p.nome AS nome_produto
+        FROM
+            vendas v
+        JOIN
+            usuarios u ON v.vendedor_id = u.id
+        JOIN
+            produtos p ON v.produto_id = p.id
+        WHERE
+            v.vendedor_id IS NOT NULL AND v.vendedor_id != ''
+            AND v.produto_id IS NOT NULL AND v.produto_id != ''";
 
-    // Buscar todos os produto_id distintos
-    $sqlProdutos = "SELECT DISTINCT produto_id FROM vendas WHERE produto_id IS NOT NULL AND produto_id != ''";
-    $stmtProdutos = $pdo->prepare($sqlProdutos);
-    $stmtProdutos->execute();
-    $produtos_ids = $stmtProdutos->fetchAll(PDO::FETCH_COLUMN);
-
-    // Buscar nomes dos vendedores
-    $vendedores = [];
-    if ($vendedores_ids) {
-        $placeholdersV = implode(',', array_fill(0, count($vendedores_ids), '?'));
-        $sqlNomesVendedores = "SELECT id, nome FROM usuarios WHERE id IN ($placeholdersV)";
-        $stmtNomesVendedores = $pdo->prepare($sqlNomesVendedores);
-        $stmtNomesVendedores->execute($vendedores_ids);
-        $vendedores = $stmtNomesVendedores->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    // Buscar nomes dos produtos
-    $produtos = [];
-    if ($produtos_ids) {
-        $placeholdersP = implode(',', array_fill(0, count($produtos_ids), '?'));
-        $sqlNomesProdutos = "SELECT id, nome FROM produtos WHERE id IN ($placeholdersP)";
-        $stmtNomesProdutos = $pdo->prepare($sqlNomesProdutos);
-        $stmtNomesProdutos->execute($produtos_ids);
-        $produtos = $stmtNomesProdutos->fetchAll(PDO::FETCH_ASSOC);
-    }
+$stmt = $pdo->prepare($sql);
+$stmt->execute();
+$vendas_detalhadas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -274,13 +260,11 @@
         </tr>
       </thead>
         <tbody>
-        <?php foreach ($vendedores as $vendedor): ?>
-            <?php foreach ($produtos as $produto): ?>
+        <?php foreach ($vendas_detalhadas as $venda): ?>
             <tr>
-                <td><?php echo htmlspecialchars($vendedor['nome']); ?></td>
-                <td><?php echo htmlspecialchars($produto['nome']); ?></td>
+                <td><?php echo htmlspecialchars($venda['nome_vendedor']); ?></td>
+                <td><?php echo htmlspecialchars($venda['nome_produto']); ?></td>
             </tr>
-            <?php endforeach; ?>
         <?php endforeach; ?>
         </tbody>
     </table>
